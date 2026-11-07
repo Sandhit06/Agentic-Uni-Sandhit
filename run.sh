@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Replace this with your controller. Contract: ./run.sh <SIM_URL> runs until the scenario finishes.
 set -euo pipefail
-SIM_URL="${1:?usage: ./run.sh <SIM_URL>}"
-echo "No controller yet — running the naive example against $SIM_URL" >&2
-exec python examples/naive_controller.py --url "$SIM_URL"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PYTHON="${PYTHON:-python3}"
+if ! command -v "$PYTHON" >/dev/null 2>&1; then PYTHON=python; fi
+export PYTHONPATH="$REPO_ROOT${PYTHONPATH:+:$PYTHONPATH}"
+exec "$PYTHON" -m solution.controller "$@"

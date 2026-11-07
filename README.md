@@ -69,14 +69,15 @@ scenarios/
 stakeholders/             six memos from people who want things from you. They disagree.
 examples/naive_controller.py   shows the API round-trip. It is deliberately bad.
 docs/SIMULATOR.md         API, config, governance, events
-SUBMISSION_TEMPLATE.md    copy to SUBMISSION.md
+solution/                 controller, tests, launchers, reports, recovery evidence
+SUBMISSION.md              completed design and results write-up
 ```
 
 ```bash
 pip install -r requirements.txt
 python -m sim baseline --scenario scenarios/public_01_dev.yaml --run-dir runs/base01
 python -m sim serve    --scenario scenarios/public_01_dev.yaml --run-dir runs/mine01     # :8700
-./run.sh http://127.0.0.1:8700                                                        # your controller
+./run.sh http://127.0.0.1:8700                                                        # governed solution controller
 python -m sim grade --run runs/mine01 --baseline runs/base01 --out reports/public_01.md
 ```
 

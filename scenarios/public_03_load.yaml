@@ -1,0 +1,1091 @@
+# Public scenario 3 — load: 12 workflows, ~650k dials/day (≈2 crore/month), 5 days.
+# Use it to prove your system keeps up. Hidden truth mirrors scenario 1 per workflow type.
+name: public_03_load
+seed: 303
+days: 5
+history_days: 7
+tick_minutes: 15
+credits: 400
+tenants:
+- id: northwind_life
+  workflows:
+  - base_engage: 0.55
+    base_pickup: 0.3
+    cadence:
+    - 2
+    - 3
+    - 3
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.4
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 0.5
+            D2: 0.5
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    did_base_health:
+      D4: 0.55
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 19
+      approver_latency_minutes:
+      - 30
+      - 240
+      auto_apply:
+        allowed_dims:
+        - schedule
+        - caller_id
+        enabled: true
+        max_shift: 0.5
+      base_reject_rate: 0.1
+      max_requests_per_24h: 3
+      min_validation_pass_rate: 0.97
+      proposal_ttl_hours: 24
+    id: nort_renewal_0
+    language_mix:
+      en: 0.3
+      hi: 0.5
+      ta: 0.2
+    mid_flight: allowed
+    objective:
+      guardrail:
+        pickup_rate_max_drop: 0.02
+      primary: engagement_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      - D4
+      prompt_version:
+      - P1
+      - P3
+      - P4
+      - P5
+      voice:
+      - V1
+      - V2
+      - V3
+      - V4
+      welcome_message:
+      - W1
+      - W2
+      - W3
+    use_case: life-insurance renewal premium reminder (persistency)
+  - base_engage: 0.6
+    base_pickup: 0.34
+    cadence:
+    - 2
+    - 2
+    - 3
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.2
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 1
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 18
+      approver_latency_minutes:
+      - 60
+      - 480
+      auto_apply:
+        allowed_dims: []
+        enabled: false
+        max_shift: 0
+      base_reject_rate: 0.15
+      max_requests_per_24h: 2
+      proposal_ttl_hours: 24
+    id: nort_kyc_1
+    language_mix:
+      en: 0.6
+      hi: 0.4
+    mid_flight: next_campaign_only
+    objective:
+      guardrail:
+        engagement_rate_max_drop: 0.02
+      primary: pickup_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      prompt_version:
+      - P1
+      - P3
+      voice:
+      - V1
+      - V2
+      welcome_message:
+      - W1
+      - W2
+    use_case: KYC document reminder for new policies
+  - base_engage: 0.5
+    base_pickup: 0.28
+    cadence:
+    - 2
+    - 2
+    - 2
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.3
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 0.5
+            D2: 0.5
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 19
+      approver_latency_minutes:
+      - 20
+      - 120
+      auto_apply:
+        allowed_dims:
+        - schedule
+        - caller_id
+        - welcome_message
+        - voice
+        enabled: true
+        max_shift: 0.2
+      base_reject_rate: 0.05
+      max_requests_per_24h: 4
+      proposal_ttl_hours: 12
+    id: nort_cancel_2
+    language_mix:
+      en: 0.2
+      hi: 0.6
+      kn: 0.2
+    mid_flight: allowed
+    objective:
+      guardrail:
+        pickup_rate_max_drop: 0.02
+      primary: engagement_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      prompt_version:
+      - P1
+      - P3
+      - P4
+      voice:
+      - V1
+      - V2
+      - V3
+      - V4
+      welcome_message:
+      - W1
+      - W2
+      - W3
+    tier_mix:
+    - 0.5
+    - 0.3
+    - 0.2
+    use_case: consumer-loan cancellation reconfirmation
+- id: kestrel_finance
+  workflows:
+  - base_engage: 0.55
+    base_pickup: 0.3
+    cadence:
+    - 2
+    - 3
+    - 3
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.4
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 0.5
+            D2: 0.5
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    did_base_health:
+      D4: 0.55
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 19
+      approver_latency_minutes:
+      - 30
+      - 240
+      auto_apply:
+        allowed_dims:
+        - schedule
+        - caller_id
+        enabled: true
+        max_shift: 0.5
+      base_reject_rate: 0.1
+      max_requests_per_24h: 3
+      min_validation_pass_rate: 0.97
+      proposal_ttl_hours: 24
+    id: kest_renewal_0
+    language_mix:
+      en: 0.3
+      hi: 0.5
+      ta: 0.2
+    mid_flight: allowed
+    objective:
+      guardrail:
+        pickup_rate_max_drop: 0.02
+      primary: engagement_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      - D4
+      prompt_version:
+      - P1
+      - P3
+      - P4
+      - P5
+      voice:
+      - V1
+      - V2
+      - V3
+      - V4
+      welcome_message:
+      - W1
+      - W2
+      - W3
+    use_case: life-insurance renewal premium reminder (persistency)
+  - base_engage: 0.6
+    base_pickup: 0.34
+    cadence:
+    - 2
+    - 2
+    - 3
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.2
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 1
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 18
+      approver_latency_minutes:
+      - 60
+      - 480
+      auto_apply:
+        allowed_dims: []
+        enabled: false
+        max_shift: 0
+      base_reject_rate: 0.15
+      max_requests_per_24h: 2
+      proposal_ttl_hours: 24
+    id: kest_kyc_1
+    language_mix:
+      en: 0.6
+      hi: 0.4
+    mid_flight: next_campaign_only
+    objective:
+      guardrail:
+        engagement_rate_max_drop: 0.02
+      primary: pickup_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      prompt_version:
+      - P1
+      - P3
+      voice:
+      - V1
+      - V2
+      welcome_message:
+      - W1
+      - W2
+    use_case: KYC document reminder for new policies
+  - base_engage: 0.5
+    base_pickup: 0.28
+    cadence:
+    - 2
+    - 2
+    - 2
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.3
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 0.5
+            D2: 0.5
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 19
+      approver_latency_minutes:
+      - 20
+      - 120
+      auto_apply:
+        allowed_dims:
+        - schedule
+        - caller_id
+        - welcome_message
+        - voice
+        enabled: true
+        max_shift: 0.2
+      base_reject_rate: 0.05
+      max_requests_per_24h: 4
+      proposal_ttl_hours: 12
+    id: kest_cancel_2
+    language_mix:
+      en: 0.2
+      hi: 0.6
+      kn: 0.2
+    mid_flight: allowed
+    objective:
+      guardrail:
+        pickup_rate_max_drop: 0.02
+      primary: engagement_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      prompt_version:
+      - P1
+      - P3
+      - P4
+      voice:
+      - V1
+      - V2
+      - V3
+      - V4
+      welcome_message:
+      - W1
+      - W2
+      - W3
+    tier_mix:
+    - 0.5
+    - 0.3
+    - 0.2
+    use_case: consumer-loan cancellation reconfirmation
+- id: aravalli_general
+  workflows:
+  - base_engage: 0.55
+    base_pickup: 0.3
+    cadence:
+    - 2
+    - 3
+    - 3
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.4
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 0.5
+            D2: 0.5
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    did_base_health:
+      D4: 0.55
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 19
+      approver_latency_minutes:
+      - 30
+      - 240
+      auto_apply:
+        allowed_dims:
+        - schedule
+        - caller_id
+        enabled: true
+        max_shift: 0.5
+      base_reject_rate: 0.1
+      max_requests_per_24h: 3
+      min_validation_pass_rate: 0.97
+      proposal_ttl_hours: 24
+    id: arav_renewal_0
+    language_mix:
+      en: 0.3
+      hi: 0.5
+      ta: 0.2
+    mid_flight: allowed
+    objective:
+      guardrail:
+        pickup_rate_max_drop: 0.02
+      primary: engagement_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      - D4
+      prompt_version:
+      - P1
+      - P3
+      - P4
+      - P5
+      voice:
+      - V1
+      - V2
+      - V3
+      - V4
+      welcome_message:
+      - W1
+      - W2
+      - W3
+    use_case: life-insurance renewal premium reminder (persistency)
+  - base_engage: 0.6
+    base_pickup: 0.34
+    cadence:
+    - 2
+    - 2
+    - 3
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.2
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 1
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 18
+      approver_latency_minutes:
+      - 60
+      - 480
+      auto_apply:
+        allowed_dims: []
+        enabled: false
+        max_shift: 0
+      base_reject_rate: 0.15
+      max_requests_per_24h: 2
+      proposal_ttl_hours: 24
+    id: arav_kyc_1
+    language_mix:
+      en: 0.6
+      hi: 0.4
+    mid_flight: next_campaign_only
+    objective:
+      guardrail:
+        engagement_rate_max_drop: 0.02
+      primary: pickup_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      prompt_version:
+      - P1
+      - P3
+      voice:
+      - V1
+      - V2
+      welcome_message:
+      - W1
+      - W2
+    use_case: KYC document reminder for new policies
+  - base_engage: 0.5
+    base_pickup: 0.28
+    cadence:
+    - 2
+    - 2
+    - 2
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.3
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 0.5
+            D2: 0.5
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 19
+      approver_latency_minutes:
+      - 20
+      - 120
+      auto_apply:
+        allowed_dims:
+        - schedule
+        - caller_id
+        - welcome_message
+        - voice
+        enabled: true
+        max_shift: 0.2
+      base_reject_rate: 0.05
+      max_requests_per_24h: 4
+      proposal_ttl_hours: 12
+    id: arav_cancel_2
+    language_mix:
+      en: 0.2
+      hi: 0.6
+      kn: 0.2
+    mid_flight: allowed
+    objective:
+      guardrail:
+        pickup_rate_max_drop: 0.02
+      primary: engagement_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      prompt_version:
+      - P1
+      - P3
+      - P4
+      voice:
+      - V1
+      - V2
+      - V3
+      - V4
+      welcome_message:
+      - W1
+      - W2
+      - W3
+    tier_mix:
+    - 0.5
+    - 0.3
+    - 0.2
+    use_case: consumer-loan cancellation reconfirmation
+- id: tidewater_health
+  workflows:
+  - base_engage: 0.55
+    base_pickup: 0.3
+    cadence:
+    - 2
+    - 3
+    - 3
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.4
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 0.5
+            D2: 0.5
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    did_base_health:
+      D4: 0.55
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 19
+      approver_latency_minutes:
+      - 30
+      - 240
+      auto_apply:
+        allowed_dims:
+        - schedule
+        - caller_id
+        enabled: true
+        max_shift: 0.5
+      base_reject_rate: 0.1
+      max_requests_per_24h: 3
+      min_validation_pass_rate: 0.97
+      proposal_ttl_hours: 24
+    id: tide_renewal_0
+    language_mix:
+      en: 0.3
+      hi: 0.5
+      ta: 0.2
+    mid_flight: allowed
+    objective:
+      guardrail:
+        pickup_rate_max_drop: 0.02
+      primary: engagement_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      - D4
+      prompt_version:
+      - P1
+      - P3
+      - P4
+      - P5
+      voice:
+      - V1
+      - V2
+      - V3
+      - V4
+      welcome_message:
+      - W1
+      - W2
+      - W3
+    use_case: life-insurance renewal premium reminder (persistency)
+  - base_engage: 0.6
+    base_pickup: 0.34
+    cadence:
+    - 2
+    - 2
+    - 3
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.2
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 1
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 18
+      approver_latency_minutes:
+      - 60
+      - 480
+      auto_apply:
+        allowed_dims: []
+        enabled: false
+        max_shift: 0
+      base_reject_rate: 0.15
+      max_requests_per_24h: 2
+      proposal_ttl_hours: 24
+    id: tide_kyc_1
+    language_mix:
+      en: 0.6
+      hi: 0.4
+    mid_flight: next_campaign_only
+    objective:
+      guardrail:
+        engagement_rate_max_drop: 0.02
+      primary: pickup_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      prompt_version:
+      - P1
+      - P3
+      voice:
+      - V1
+      - V2
+      welcome_message:
+      - W1
+      - W2
+    use_case: KYC document reminder for new policies
+  - base_engage: 0.5
+    base_pickup: 0.28
+    cadence:
+    - 2
+    - 2
+    - 2
+    daily_batch:
+      at_hour: 8
+      returning_share: 0.3
+      size: 16000
+    default_config:
+      allocations:
+        default:
+          caller_id:
+            D1: 0.5
+            D2: 0.5
+          voice:
+            V1: 1
+          welcome_message:
+            W1: 1
+      prompt_version: P1
+    dialling_window:
+    - 9
+    - 21
+    dials_per_hour: 4500
+    governance:
+      apply_window_hours: 2
+      approver_hours:
+      - 10
+      - 19
+      approver_latency_minutes:
+      - 20
+      - 120
+      auto_apply:
+        allowed_dims:
+        - schedule
+        - caller_id
+        - welcome_message
+        - voice
+        enabled: true
+        max_shift: 0.2
+      base_reject_rate: 0.05
+      max_requests_per_24h: 4
+      proposal_ttl_hours: 12
+    id: tide_cancel_2
+    language_mix:
+      en: 0.2
+      hi: 0.6
+      kn: 0.2
+    mid_flight: allowed
+    objective:
+      guardrail:
+        pickup_rate_max_drop: 0.02
+      primary: engagement_rate
+    options:
+      caller_id:
+      - D1
+      - D2
+      - D3
+      prompt_version:
+      - P1
+      - P3
+      - P4
+      voice:
+      - V1
+      - V2
+      - V3
+      - V4
+      welcome_message:
+      - W1
+      - W2
+      - W3
+    tier_mix:
+    - 0.5
+    - 0.3
+    - 0.2
+    use_case: consumer-loan cancellation reconfirmation
+prompts:
+  P1:
+    summary: Current production prompt
+    halluc: 0.006
+    engage_mult: 1.0
+  P3:
+    summary: 'Grounded: benefit claims restricted to policy-schedule fields; tighter objection handling'
+    halluc: 0.004
+    engage_mult: 1.03
+  P4:
+    summary: 'Persuasive: freer objection handling and richer benefit explanations'
+    halluc: 0.025
+    engage_mult: 1.06
+  P5:
+    summary: 'Strict: near-verbatim compliance script'
+    halluc: 0.003
+    engage_mult: 0.86
+# ---- hidden ground truth (do not read from your controller) ----
+did_l0_per_dph: 30
+did_tau_days: 2
+effects:
+- workflow: nort_renewal_0
+  dim: voice
+  value: V3
+  mult: 1.22
+  where: &id001
+    age_band:
+    - 60+
+- workflow: nort_renewal_0
+  dim: voice
+  value: V3
+  mult: 0.88
+  where: &id002
+    age_band:
+    - 18-30
+- workflow: nort_renewal_0
+  dim: welcome_message
+  value: W2
+  mult: 1.1
+  where: &id003
+    lang:
+    - hi
+- workflow: nort_renewal_0
+  dim: welcome_message
+  value: W3
+  mult: 1.15
+  decay: &id004
+    after_exposure_days: 3
+    to_mult: 0.93
+    over_days: 2
+- workflow: nort_kyc_1
+  dim: welcome_message
+  value: W2
+  mult: 1.08
+- workflow: nort_kyc_1
+  dim: voice
+  value: V2
+  mult: 1.12
+  where: &id005
+    lang:
+    - en
+- workflow: nort_cancel_2
+  dim: voice
+  value: V4
+  mult: 1.15
+  where: &id006
+    age_band:
+    - 18-30
+    - 31-45
+- workflow: nort_cancel_2
+  dim: welcome_message
+  value: W3
+  mult: 0.9
+- workflow: nort_cancel_2
+  dim: welcome_message
+  value: W2
+  mult: 1.06
+  where: &id007
+    city_tier:
+    - '1'
+- workflow: kest_renewal_0
+  dim: voice
+  value: V3
+  mult: 1.22
+  where: *id001
+- workflow: kest_renewal_0
+  dim: voice
+  value: V3
+  mult: 0.88
+  where: *id002
+- workflow: kest_renewal_0
+  dim: welcome_message
+  value: W2
+  mult: 1.1
+  where: *id003
+- workflow: kest_renewal_0
+  dim: welcome_message
+  value: W3
+  mult: 1.15
+  decay: *id004
+- workflow: kest_kyc_1
+  dim: welcome_message
+  value: W2
+  mult: 1.08
+- workflow: kest_kyc_1
+  dim: voice
+  value: V2
+  mult: 1.12
+  where: *id005
+- workflow: kest_cancel_2
+  dim: voice
+  value: V4
+  mult: 1.15
+  where: *id006
+- workflow: kest_cancel_2
+  dim: welcome_message
+  value: W3
+  mult: 0.9
+- workflow: kest_cancel_2
+  dim: welcome_message
+  value: W2
+  mult: 1.06
+  where: *id007
+- workflow: arav_renewal_0
+  dim: voice
+  value: V3
+  mult: 1.22
+  where: *id001
+- workflow: arav_renewal_0
+  dim: voice
+  value: V3
+  mult: 0.88
+  where: *id002
+- workflow: arav_renewal_0
+  dim: welcome_message
+  value: W2
+  mult: 1.1
+  where: *id003
+- workflow: arav_renewal_0
+  dim: welcome_message
+  value: W3
+  mult: 1.15
+  decay: *id004
+- workflow: arav_kyc_1
+  dim: welcome_message
+  value: W2
+  mult: 1.08
+- workflow: arav_kyc_1
+  dim: voice
+  value: V2
+  mult: 1.12
+  where: *id005
+- workflow: arav_cancel_2
+  dim: voice
+  value: V4
+  mult: 1.15
+  where: *id006
+- workflow: arav_cancel_2
+  dim: welcome_message
+  value: W3
+  mult: 0.9
+- workflow: arav_cancel_2
+  dim: welcome_message
+  value: W2
+  mult: 1.06
+  where: *id007
+- workflow: tide_renewal_0
+  dim: voice
+  value: V3
+  mult: 1.22
+  where: *id001
+- workflow: tide_renewal_0
+  dim: voice
+  value: V3
+  mult: 0.88
+  where: *id002
+- workflow: tide_renewal_0
+  dim: welcome_message
+  value: W2
+  mult: 1.1
+  where: *id003
+- workflow: tide_renewal_0
+  dim: welcome_message
+  value: W3
+  mult: 1.15
+  decay: *id004
+- workflow: tide_kyc_1
+  dim: welcome_message
+  value: W2
+  mult: 1.08
+- workflow: tide_kyc_1
+  dim: voice
+  value: V2
+  mult: 1.12
+  where: *id005
+- workflow: tide_cancel_2
+  dim: voice
+  value: V4
+  mult: 1.15
+  where: *id006
+- workflow: tide_cancel_2
+  dim: welcome_message
+  value: W3
+  mult: 0.9
+- workflow: tide_cancel_2
+  dim: welcome_message
+  value: W2
+  mult: 1.06
+  where: *id007
+incidents: []

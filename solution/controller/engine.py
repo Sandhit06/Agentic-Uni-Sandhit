@@ -396,14 +396,26 @@ class Controller:
 
     def _on_change_applied(self, wid: str, p: dict):
         if p.get("kind") == "incident_prompt":
+            incident_id = None
+            try:
+                evidence = json.loads(p.get("evidence_json") or "{}")
+                incident_id = evidence.get("incident_id")
+            except (TypeError, json.JSONDecodeError):
+                pass
             inc = self.active.get((wid, "prompt_safety"))
+            if inc is None and incident_id is not None:
+                inc = self.store.incident(int(incident_id))
             if inc:
                 detail = json.loads(inc["detail_json"])
+                detail["fix_proposal_id"] = p.get("proposal_id")
                 detail["fixed_minute"] = self.now
                 detail["mttr_minutes"] = self.now - int(inc["detected_minute"])
                 self.store.update_incident(int(inc["id"]), "fixed", detail)
                 self.active.pop((wid, "prompt_safety"), None)
-                self._log("incident_fixed", {"incident_id": inc["id"], "mttr": detail["mttr_minutes"]}, wid)
+                self._log("incident_fixed", {
+                    "incident_id": inc["id"], "proposal_id": p.get("proposal_id"),
+                    "mttr": detail["mttr_minutes"], "prompt": detail.get("fix_prompt"),
+                }, wid)
 
     def _note_approval_failure(self, wid: str, p: dict, status: str, a: dict):
         if p.get("kind") == "incident_prompt":
@@ -1006,6 +1018,14 @@ class Controller:
                 if sdims:
                     diff = summarise_change(current, shifted)
                     dry, affected = self._dry_run(wid, shifted)
+                    if not dry.get("guardrail_ok", True):
+                        self._log("plan_blocked_guardrail", {
+                            "dims": sdims, "guardrail": dry.get("guardrail"),
+                            "delta": dry.get("guardrail_delta"),
+                            "allowed_drop": (wf.get("objective", {}).get("guardrail") or {}),
+                        }, wid)
+                        self.store.set_meta(key, day)
+                        continue
                     impact = impact_score(dry)
                     summary = "Apply " + ", ".join(sdims) + " change learned from recent call outcomes"
                     rationale = self._rationale(wid, ctx, dry, "operational auto-apply")
@@ -1019,6 +1039,14 @@ class Controller:
                 continue
             diff = summarise_change(current, target)
             dry, affected = self._dry_run(wid, target)
+            if not dry.get("guardrail_ok", True):
+                self._log("plan_blocked_guardrail", {
+                    "dims": dims, "guardrail": dry.get("guardrail"),
+                    "delta": dry.get("guardrail_delta"),
+                    "allowed_drop": (wf.get("objective", {}).get("guardrail") or {}),
+                }, wid)
+                self.store.set_meta(key, day)
+                continue
             impact = impact_score(dry)
             summary = self._summary(wid, dims, ctx)
             rationale = self._rationale(wid, ctx, dry, "supervised config change")

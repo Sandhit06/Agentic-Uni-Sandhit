@@ -1,0 +1,17 @@
+{
+  "scenario": "public_03_load",
+  "sim_minute": 7200,
+  "finished": true,
+  "last_event_id": 9737596,
+  "elapsed_seconds": 531.42,
+  "simulated_days": 5.0,
+  "average_wall_seconds_per_sim_day": 106.28,
+  "controller_peak_rss_mb": 127.28,
+  "controller_pid": 7824,
+  "initial_history_event_id": 5537379,
+  "live_events": 4200217,
+  "total_events": 9737596,
+  "events_per_second": 18323.66,
+  "dials_d0_d4_all_segment": 3240000,
+  "dials_per_simulated_day": 648000
+}

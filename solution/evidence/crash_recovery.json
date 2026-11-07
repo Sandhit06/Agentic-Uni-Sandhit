@@ -1,0 +1,24 @@
+{
+  "scenario": "public_02_incidents",
+  "killed_midrun_sim_minute": 720,
+  "sim_minute_before_restart": 720,
+  "last_event_id_checkpoint_before_restart": 193077,
+  "pending_proposals_at_restart": 3,
+  "pending_approval_ids_at_restart": [
+    "apr_00001",
+    "apr_00002",
+    "apr_00003"
+  ],
+  "restart_exit_code": 0,
+  "finished_after_restart": true,
+  "final_sim_minute": 14400,
+  "simulator_last_event_id": 324336,
+  "controller_last_event_id": 324336,
+  "controller_starts_recorded": 2,
+  "clean_stop_records": 1,
+  "proposal_status_counts": {
+    "applied": 15,
+    "rejected": 2,
+    "stale": 1
+  }
+}

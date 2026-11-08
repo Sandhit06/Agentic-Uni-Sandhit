@@ -1,6 +1,6 @@
 # Outcome-First Agent Loop — Submission Notes
 
-**Name:** [fill in] · **Date:** 2026-11-07 · **Hours actually spent:** not tracked during assisted work
+**Name:** Sandhit Karmakar · **Date:** 2026-11-08 · **Hours actually spent:** around 12hours
 
 ## 0. TL;DR
 
